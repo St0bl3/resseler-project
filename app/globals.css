@@ -1,0 +1,384 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #030814;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@layer components {
+  .ambient {
+    position: fixed;
+    pointer-events: none;
+    filter: blur(8px);
+    opacity: 0.95;
+    z-index: 0;
+  }
+
+  .ambient-a {
+    inset: -140px auto auto -100px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(34, 211, 238, 0.24), transparent 65%);
+    animation: drift 12s ease-in-out infinite;
+  }
+
+  .ambient-b {
+    right: -120px;
+    bottom: 12%;
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.28), transparent 64%);
+    animation: drift 15s ease-in-out infinite reverse;
+  }
+
+  .icon-button {
+    @apply grid size-11 place-items-center rounded-lg border border-cyan-300/15 bg-white/[0.05] text-cyan-100 transition hover:border-cyan-200/40 hover:bg-cyan-300/10;
+  }
+
+  .nav-link {
+    @apply rounded-lg px-3 py-2 text-sm font-bold text-slate-300 transition hover:bg-cyan-300/10 hover:text-cyan-100;
+  }
+
+  .cart-badge {
+    @apply absolute -right-2 -top-2 grid size-6 place-items-center rounded-full bg-cyan-300 text-xs font-black text-[#061225];
+  }
+
+  .primary-button,
+  .checkout-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cyan-300 px-5 py-3 font-black text-[#061225] shadow-[0_0_30px_rgba(34,211,238,.22)] transition hover:-translate-y-0.5 hover:bg-cyan-200;
+  }
+
+  .ghost-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-cyan-300/20 bg-white/[0.04] px-5 py-3 font-bold text-cyan-50 transition hover:-translate-y-0.5 hover:bg-cyan-300/10;
+  }
+
+  .small-primary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-black text-[#061225] transition hover:bg-cyan-200;
+  }
+
+  .ghost-mini-button {
+    @apply grid size-10 place-items-center rounded-lg border border-cyan-300/20 bg-white/[0.04] text-cyan-100 transition hover:bg-cyan-300/10;
+  }
+
+  .danger-button {
+    @apply grid size-12 shrink-0 place-items-center rounded-lg border border-rose-300/25 bg-rose-400/10 text-rose-100 transition hover:bg-rose-400/20;
+  }
+
+  .checkout-button {
+    @apply inline-flex min-h-12 flex-1;
+  }
+
+  .stat-tile {
+    @apply rounded-lg border border-cyan-300/15 bg-white/[0.04] p-4;
+  }
+
+  .stat-tile strong {
+    @apply block text-xl font-black text-white;
+  }
+
+  .stat-tile span {
+    @apply text-sm text-cyan-100/70;
+  }
+
+  .hero-panel {
+    @apply absolute inset-0 overflow-hidden rounded-lg border border-cyan-300/15 bg-[#061225] shadow-[0_0_90px_rgba(14,165,233,.18)];
+    background:
+      linear-gradient(140deg, rgba(34, 211, 238, 0.12), transparent 45%),
+      radial-gradient(circle at 75% 22%, rgba(59, 130, 246, 0.36), transparent 32%),
+      #061225;
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(103, 232, 249, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(103, 232, 249, 0.08) 1px, transparent 1px);
+    background-size: 42px 42px;
+    mask-image: linear-gradient(to bottom, black, transparent 86%);
+  }
+
+  .hero-core {
+    @apply absolute left-1/2 top-1/2 grid size-44 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-cyan-200/30 bg-cyan-300/10 shadow-[0_0_80px_rgba(34,211,238,.38)];
+    animation: pulseCore 3.8s ease-in-out infinite;
+  }
+
+  .scope-ring {
+    @apply absolute left-1/2 top-1/2 size-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-cyan-200/20;
+  }
+
+  .scope-ring div {
+    @apply absolute inset-8 rounded-full border border-blue-300/20;
+  }
+
+  .weapon-card {
+    @apply absolute w-64 rounded-lg border border-cyan-200/20 bg-[#07162b]/90 p-4 shadow-2xl backdrop-blur;
+  }
+
+  .weapon-card p {
+    @apply text-xs font-black uppercase tracking-[0.2em] text-cyan-200;
+  }
+
+  .weapon-card strong {
+    @apply mt-2 block text-xl font-black text-white;
+  }
+
+  .weapon-card small {
+    @apply mt-1 block text-slate-400;
+  }
+
+  .skin-line {
+    @apply mb-4 block h-2 rounded-full bg-gradient-to-r from-cyan-200 via-blue-500 to-indigo-500;
+  }
+
+  .skin-line.alt {
+    @apply from-emerald-300 via-cyan-400 to-blue-600;
+  }
+
+  .card-float-a {
+    left: 8%;
+    top: 18%;
+    animation: floatA 5.5s ease-in-out infinite;
+  }
+
+  .card-float-b {
+    bottom: 18%;
+    right: 8%;
+    animation: floatB 6.5s ease-in-out infinite;
+  }
+
+  .section-kicker {
+    @apply text-sm font-black uppercase tracking-[0.24em] text-cyan-200;
+  }
+
+  .search-box {
+    @apply flex min-h-12 w-full items-center gap-3 rounded-lg border border-cyan-300/15 bg-white/[0.04] px-4 md:max-w-sm;
+  }
+
+  .search-box input {
+    @apply w-full bg-transparent text-white outline-none placeholder:text-slate-500;
+  }
+
+  .product-card {
+    @apply overflow-hidden rounded-lg border border-cyan-300/15 bg-white/[0.04] transition duration-300 hover:-translate-y-1 hover:border-cyan-200/40 hover:shadow-[0_0_40px_rgba(34,211,238,.12)];
+  }
+
+  .product-art {
+    @apply relative h-40 overflow-hidden;
+  }
+
+  .product-art::before {
+    content: "";
+    position: absolute;
+    inset: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    transform: skewX(-16deg);
+  }
+
+  .product-chip {
+    @apply absolute left-4 top-4 rounded-full border border-white/30 bg-[#030814]/40 px-3 py-1 text-xs font-black uppercase tracking-[0.16em] text-white backdrop-blur;
+  }
+
+  .product-glow {
+    @apply absolute -bottom-20 left-1/2 size-48 -translate-x-1/2 rounded-full bg-white/30 blur-3xl transition group-hover:bg-white/45;
+  }
+
+  .product-detail-art {
+    @apply relative min-h-[360px] overflow-hidden rounded-lg border border-cyan-300/15 shadow-[0_0_70px_rgba(34,211,238,.12)];
+  }
+
+  .product-detail-art::before {
+    content: "";
+    position: absolute;
+    inset: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    transform: skewX(-16deg);
+  }
+
+  .product-detail-art::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -120px;
+    width: 360px;
+    height: 360px;
+    transform: translateX(-50%);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.28);
+    filter: blur(58px);
+  }
+
+  .drawer-shell {
+    @apply pointer-events-none fixed inset-0 z-50;
+  }
+
+  .drawer-open {
+    @apply pointer-events-auto;
+  }
+
+  .drawer-backdrop {
+    @apply absolute inset-0 bg-black/0 transition;
+  }
+
+  .drawer-open .drawer-backdrop {
+    @apply bg-black/60 backdrop-blur-sm;
+  }
+
+  .drawer-panel {
+    @apply absolute right-0 top-0 flex h-full w-full max-w-md translate-x-full flex-col border-l border-cyan-300/15 bg-[#061225] shadow-2xl transition duration-300;
+  }
+
+  .drawer-open .drawer-panel {
+    @apply translate-x-0;
+  }
+
+  .empty-cart {
+    @apply grid min-h-64 place-items-center rounded-lg border border-dashed border-cyan-300/20 bg-white/[0.03] p-6 text-center text-slate-400;
+  }
+
+  .cart-line {
+    @apply flex items-center justify-between gap-4 rounded-lg border border-cyan-300/15 bg-white/[0.04] p-4;
+  }
+
+  .qty-button {
+    @apply grid size-9 place-items-center rounded-lg border border-cyan-300/15 bg-cyan-300/10 text-cyan-100 transition hover:bg-cyan-300/20;
+  }
+
+  .field-label {
+    @apply mb-2 block text-sm font-bold text-cyan-100;
+  }
+
+  .checkout-input {
+    @apply min-h-12 w-full rounded-lg border border-cyan-300/15 bg-white/[0.05] px-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-200/45;
+  }
+
+  .admin-panel {
+    @apply rounded-lg border border-cyan-300/15 bg-white/[0.04] p-5 shadow-[0_0_50px_rgba(34,211,238,.08)];
+  }
+
+  .admin-product {
+    @apply flex w-full items-center justify-between gap-4 rounded-lg border border-cyan-300/10 bg-[#061225] p-4 text-left transition hover:border-cyan-200/40 hover:bg-cyan-300/10;
+  }
+
+  .admin-product-active {
+    @apply border-cyan-200/45 bg-cyan-300/10;
+  }
+
+  .admin-product strong {
+    @apply block text-white;
+  }
+
+  .admin-product small {
+    @apply mt-1 block text-sm text-slate-400;
+  }
+
+  .toggle-line {
+    @apply inline-flex items-center gap-3 rounded-lg border border-cyan-300/15 bg-cyan-300/10 px-4 py-3 text-sm font-bold text-cyan-100;
+  }
+
+  .toggle-line input {
+    @apply size-5 accent-cyan-300;
+  }
+
+  .admin-textarea {
+    @apply min-h-32 w-full resize-y rounded-lg border border-cyan-300/15 bg-white/[0.05] p-4 text-white outline-none transition placeholder:text-slate-500 focus:border-cyan-200/45;
+  }
+
+  .key-row {
+    @apply grid gap-3 rounded-lg border border-cyan-300/15 bg-[#061225] p-3 md:grid-cols-[1fr_160px_48px] md:items-center;
+  }
+
+  .key-row code {
+    @apply overflow-hidden text-ellipsis whitespace-nowrap rounded-lg bg-black/20 px-3 py-2 text-sm text-cyan-100;
+  }
+
+  .key-row select {
+    @apply min-h-11 rounded-lg border border-cyan-300/15 bg-[#030814] px-3 text-white outline-none;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(28px, -22px, 0) scale(1.08);
+  }
+}
+
+@keyframes pulseCore {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes floatA {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(-2deg);
+  }
+}
+
+@keyframes floatB {
+  0%,
+  100% {
+    transform: translateY(0) rotate(5deg);
+  }
+  50% {
+    transform: translateY(18px) rotate(2deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .weapon-card {
+    width: 220px;
+  }
+
+  .card-float-a {
+    left: 5%;
+    top: 14%;
+  }
+
+  .card-float-b {
+    right: 5%;
+    bottom: 14%;
+  }
+}
